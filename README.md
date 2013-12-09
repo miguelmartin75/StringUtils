@@ -44,6 +44,20 @@ std::string whatIsTheExtension = "this.is.very.complicated.png.txt.jpg";
 auto ext = util::get_extension(whatIsTheExtension); // == "jpg"
 ```
 
+# Building Tests
+
+To build the tests and to make sure everything is working properly, simply:
+
+```
+make test
+```
+
+and to clean the binary(ies) up, simply:
+
+```
+make clean
+```
+
 # License
 Copyright (C) 2013 Miguel Martin (miguel.martin7.5@hotmail.com)
 
