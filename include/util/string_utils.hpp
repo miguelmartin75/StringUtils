@@ -25,7 +25,6 @@
 #ifndef __STRINGUTILS_HPP__
 #define __STRINGUTILS_HPP__
 
-#include <string>
 #include <cstring>
 #include <algorithm>
 #include <sstream>
