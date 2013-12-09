@@ -34,7 +34,7 @@ namespace util
 	template <typename Str, class UnaryOperator>
 	Str convert_string(const Str& str, UnaryOperator unaryOp)
 	{
-		Str temp(str);
+		Str temp{str};
 		std::transform(temp.begin(), temp.end(), temp.begin(), unaryOp);
 		
 		return temp;
@@ -68,7 +68,7 @@ namespace util
 	template <typename T, typename Str>
     T& from_string(const Str& str, T& obj)
     {
-        std::istringstream temp{str};
+        std::basic_istringstream<typename Str::value_type> temp{str};
         temp >> obj;
         return obj;
     }
@@ -83,7 +83,7 @@ namespace util
     template <typename Str, typename T>
     Str to_string(const T& var)
     {
-        std::ostringstream temp;
+        std::basic_ostringstream<typename Str::value_type> temp;
         temp << var;
         return temp.str();
     }
