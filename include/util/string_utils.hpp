@@ -1,6 +1,6 @@
 ///
 /// String Utils
-/// 
+///
 /// Copyright (C) 2013 Miguel Martin (miguel.martin7.5@hotmail.com)
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,68 +25,77 @@
 #ifndef __STRINGUTILS_HPP__
 #define __STRINGUTILS_HPP__
 
-#include <cstring>
-
 #include <string>
+#include <cstring>
 #include <algorithm>
 #include <sstream>
 
 namespace util
 {
-	template <typename Str = std::string, class UnaryOperator>
-	Str ConvertString(const Str& str, UnaryOperator unaryOp)
+	template <typename Str, class UnaryOperator>
+	Str convert_string(const Str& str, UnaryOperator unaryOp)
 	{
-		std::string temp(str);
+		Str temp(str);
 		std::transform(temp.begin(), temp.end(), temp.begin(), unaryOp);
 		
 		return temp;
 	}
 	
 	template <typename Str>
-	Str StringToUpper(const Str& str)
+	Str to_upper(const Str& str)
 	{
-		return ConvertString(str, ::toupper);
+		return convert_string(str, ::toupper);
 	}
 	
-	template <typename Str = std::string>
-	Str StringToLower(const Str& str)
+	template <typename Str>
+	Str to_lower(const Str& str)
 	{
-		return ConvertString(str, ::tolower);
+		return convert_string(str, ::tolower);
 	}
 	
 	
-	template <typename Str = std::string>
-	Str CenterString(const Str& str, int amountOfCharactersInLine, char fillChar)
+	template <typename Str>
+	Str center_string(const Str& str, int amountOfCharactersInLine, char fillChar= ' ')
 	{
-		int halfStringSize = str.length() / 2;
-		int amountOfFillCharactersRequired = (amountOfCharactersInLine / 2) - halfStringSize;
+        std::size_t halfStringSize = str.length() / 2;
+		std::size_t amountOfFillCharactersRequired = (amountOfCharactersInLine / 2) - halfStringSize;
 		
-		std::string fillCharacter(amountOfFillCharactersRequired, fillChar);
+		Str fillCharacter(amountOfFillCharactersRequired, fillChar);
 		
 		return fillCharacter + str + fillCharacter;
 	}
 	
 	
-	template <typename T, typename Str = std::string>
-	T ConvertFromString(const std::string& str)
-	{
-		std::istringstream stream(str);
-		T temp;
-		stream >> temp;
-		
-		return temp;
-	}
+	template <typename T, typename Str>
+    T& from_string(const Str& str, T& obj)
+    {
+        std::istringstream temp{str};
+        temp >> obj;
+        return obj;
+    }
+    
+    template <typename T, typename Str>
+    T from_string(const Str& str)
+    {
+        T temp;
+        return from_string(str, temp);
+    }
 	
-	
-	
+    template <typename Str, typename T>
+    Str to_string(const T& var)
+    {
+        std::ostringstream temp;
+        temp << var;
+        return temp.str();
+    }
 	
 	/// Gets an Extension from a string.
 	/// \param str The string you wish to get the extension from.
 	/// \return The extension from the string you parsed in.
 	template <typename Str>
-	Str GetExtensionFromString(const Str& str)
+	Str get_extension(const Str& str)
 	{
-		std::string extension; // Holds the extension
+		Str extension; // Holds the extension
 		
 		size_t sizeOfStringUntilExtension = 0;
 		size_t sizeOfExtension = 0; // How many characters are in the extension
