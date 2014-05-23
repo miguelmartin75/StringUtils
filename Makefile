@@ -1,5 +1,10 @@
+CXX=c++
+CXX_ARGS=-std=c++11
+
+all: test
 test:
-	c++ ./tests/functions.cpp -std=c++11 -o "./tests/test_functions"
+	$(CXX) $(CXX_ARGS) tests/functions.cpp -o tests/test_functions
 	./tests/test_functions
 clean:
-	rm -f ./tests/test_functions
+	rm ./tests/test_functions
+

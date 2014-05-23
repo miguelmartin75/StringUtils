@@ -1,7 +1,7 @@
 ///
 /// String Utils
 ///
-/// Copyright (C) 2013 Miguel Martin (miguel.martin7.5@hotmail.com)
+/// Copyright (C) 2014 Miguel Martin (miguel@miguel-martin.com)
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,8 @@
 /// THE SOFTWARE.
 ///
 
-#ifndef __STRINGUTILS_HPP__
-#define __STRINGUTILS_HPP__
+#ifndef UTIL_STRING_UTILS_HPP
+#define UTIL_STRING_UTILS_HPP
 
 #include <cstring>
 #include <algorithm>
@@ -31,55 +31,55 @@
 
 namespace util
 {
-	template <typename Str, class UnaryOperator>
-	Str convert_string(const Str& str, UnaryOperator unaryOp)
-	{
-		Str temp{str};
-		std::transform(temp.begin(), temp.end(), temp.begin(), unaryOp);
-		
-		return temp;
-	}
-	
-	template <typename Str>
-	Str to_upper(const Str& str)
-	{
-		return convert_string(str, ::toupper);
-	}
-	
-	template <typename Str>
-	Str to_lower(const Str& str)
-	{
-		return convert_string(str, ::tolower);
-	}
-	
-	
-	template <typename Str>
-	Str center_string(const Str& str, int amountOfCharactersInLine, char fillChar= ' ')
-	{
+    template <typename Str, class UnaryOperator>
+    Str convert_string(const Str& str, UnaryOperator unaryOp)
+    {
+        Str temp(str);
+        std::transform(temp.begin(), temp.end(), temp.begin(), unaryOp);
+
+        return temp;
+    }
+
+    template <typename Str>
+    Str to_upper(const Str& str)
+    {
+        return convert_string(str, ::toupper);
+    }
+
+    template <typename Str>
+    Str to_lower(const Str& str)
+    {
+        return convert_string(str, ::tolower);
+    }
+
+
+    template <typename Str>
+    Str center_string(const Str& str, int amountOfCharactersInLine, char fillChar= ' ')
+    {
         std::size_t halfStringSize = str.length() / 2;
-		std::size_t amountOfFillCharactersRequired = (amountOfCharactersInLine / 2) - halfStringSize;
-		
-		Str fillCharacter(amountOfFillCharactersRequired, fillChar);
-		
-		return fillCharacter + str + fillCharacter;
-	}
-	
-	
-	template <typename T, typename Str>
+        std::size_t amountOfFillCharactersRequired = (amountOfCharactersInLine / 2) - halfStringSize;
+
+        Str fillCharacter(amountOfFillCharactersRequired, fillChar);
+
+        return fillCharacter + str + fillCharacter;
+    }
+
+
+    template <typename T, typename Str>
     T& from_string(const Str& str, T& obj)
     {
-        std::basic_istringstream<typename Str::value_type> temp{str};
+        std::basic_istringstream<typename Str::value_type> temp(str);
         temp >> obj;
         return obj;
     }
-    
+
     template <typename T, typename Str>
     T from_string(const Str& str)
     {
         T temp;
         return from_string(str, temp);
     }
-	
+
     template <typename Str, typename T>
     Str to_string(const T& var)
     {
@@ -87,31 +87,31 @@ namespace util
         temp << var;
         return temp.str();
     }
-	
-	/// Gets an Extension from a string.
-	/// \param str The string you wish to get the extension from.
-	/// \return The extension from the string you parsed in.
-	template <typename Str>
-	Str get_extension(const Str& str)
-	{
-		Str extension; // Holds the extension
-		
-		size_t sizeOfStringUntilExtension = 0;
-		size_t sizeOfExtension = 0; // How many characters are in the extension
-		
-		for(size_t i = 0; i < str.size(); ++i)
-		{
-			if(str[i] == '.')
-			{
-				sizeOfStringUntilExtension = i + 1;
-			}
-		}
-		
-		sizeOfExtension = static_cast<int>(str.size() - sizeOfStringUntilExtension);
-		
-		extension = str.substr(str.size() - sizeOfExtension);
-		return extension;
-	}
+
+    /// Gets an Extension from a string.
+    /// \param str The string you wish to get the extension from.
+    /// \return The extension from the string you parsed in.
+    template <typename Str>
+    Str get_extension(const Str& str)
+    {
+        Str extension; // Holds the extension
+
+        size_t sizeOfStringUntilExtension = 0;
+        size_t sizeOfExtension = 0; // How many characters are in the extension
+
+        for(size_t i = 0; i < str.size(); ++i)
+        {
+            if(str[i] == '.')
+            {
+                sizeOfStringUntilExtension = i + 1;
+            }
+        }
+
+        sizeOfExtension = static_cast<int>(str.size() - sizeOfStringUntilExtension);
+
+        extension = str.substr(str.size() - sizeOfExtension);
+        return extension;
+    }
 }
 
-#endif // __STRINGUTILS_HPP__
+#endif // UTIL_STRING_UTILS_HPP
